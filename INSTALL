@@ -1,0 +1,38 @@
+
+Istruzioni per l'utilizzo di MiniEPG.
+
+- Procurarsi una macchina Linux/MacOS ( Fisica o Virtuale ), che sia in grado di connettersi a Internet.
+
+- Fare login e creare una cartella, possibilmente nella Home Directory o sul Desktop,
+  diciamo che la chiamiamo MiniEP
+
+- Con un browser ( Firefox, Chrome, Safari ) scaricare i file che trovate qui :
+
+  https://www.dropbox.com/sh/mc0xesxwuza1eel/AAB_HChSiJ81ATUwlCLIMp_Ja?dl=0
+
+  e salvateli nella cartella MiniEPG
+
+- Aprire una Finestra Terminale dalla Cartella MiniEPG:
+    Dovrebbe esser possibile fare 'Apri Finestra Terminale qui'
+
+- oppure Andare nella cartella : alcuni comandi che potete provare :
+  $  cd MiniEPG
+  $  cd Desktop/MiniEPG
+
+- verificate di essere nella cartella giusta: dando il comando
+  - ls -l
+  deve venire fuori una lista simile a questa:
+
+	-rw-r--r-- 1 avi avi  815 Apr 22 22:26 Istruzioni.txt
+	-rw-r--r-- 1 avi avi 2561 Apr 19 18:39 MiniEPG.py
+	-rw-r--r-- 1 avi avi 1938 Apr 19 18:39 MiniEPG.sh
+	-rw-r--r-- 1 avi avi 7428 Apr 19 18:39 xml2json.py
+
+- a questo punto date il comando
+  $  bash MiniEPG.sh
+  e aspettate pazientemente
+
+- Quando ha finito i files saranno molti di più, quello importante però è
+  $  ls -l epg.v2.sqlite.zip
+
+	-rw-r--r-- 1 avi avi 104457 Apr 19 18:11 epg.v2.sqlite.zip
