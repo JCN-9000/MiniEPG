@@ -1,4 +1,5 @@
 # Install this file into crontab:
 #  $ crontab $HOME/MiniEPG/MiniEPG.crontab
 #
-40 6,18 * * * bash $HOME/MiniEPG/MiniEPG.sh
+40 6,18 * * * bash $HOME/MiniEPG/MiniEPG_cron.sh
+
