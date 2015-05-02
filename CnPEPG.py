@@ -30,53 +30,28 @@ conn = sqlite3.connect('epg.v2.sqlite')
 c = conn.cursor()
 
 for bc in js["tv"]["programme"]:
-    #~ print bc["start"]
-    #~ print bc["end"]
-    #~ print bc["duration"]
-    #pr = bc["programme"]
-    
-    #~ print pr["@type"]
-    #~ print pr["pid"]
-    #~ print unidecode(pr["title"])
-    #~ print unidecode(pr["display_titles"]["title"])
-    #~ print unidecode(pr["display_titles"]["subtitle"])
-    #~ print unidecode(pr["short_synopsis"])
-   # pp = pr.get("programme")
-    #~ if pp:
-        #~ print pp["@type"]
-        #~ print pp["pid"]
-        #~ print unidecode(pp["title"])
-
-    #pid = pr["pid"]
-
-    #channel_name = js["schedule"]["service"]["title"]
     cn = bc["@channel"]
     
+    # Handle inconsistent spelling of channel names
     if cn == u'Rete 4':
- #       print 'Replacing Rete 4 with Rete4'
         channel_name = u'Rete4'
     elif cn == u'Canale 5':
- #       print 'Replacing Canale 5 with Canale5'
         channel_name = u'Canale5'
     elif cn == u'Italia 1':
-  #      print 'Replacing Italia 1 with Italia1'
         channel_name  = u'Italia1'
     else:
         channel_name = cn
-        
-    #print 'Channel="'+channel_name+'"'
     
-    
-    
+    # Load existing channel data from DB
     p = ( channel_name, )
     c.execute('SELECT id FROM channel WHERE name = ?', p)
     row = c.fetchone()
     if not row:
- #       print "Channel name \"{0}\" not found in sqlite DB, next...".format(channel_name)
+        #       print "Ignoring unrecognised channel  \"{0}\" ".format(channel_name)
         continue
-    
     channel = row[0]
-    #~ print channel_name, channel
+  
+    # Get start/end dates (used later for duration)
     pstart = bc["@start"]
     start_date = int(datetime.datetime.strptime(pstart.split('+')[0], '%Y%m%d%H%M%S ').strftime("%s"))
     start_date = start_date / 60
@@ -85,32 +60,34 @@ for bc in js["tv"]["programme"]:
     end_date = int(datetime.datetime.strptime(pend.split('+')[0], '%Y%m%d%H%M%S ').strftime("%s"))
     end_date = end_date / 60
 
-    #line = pr["display_titles"].get("title")
-    line = bc["title"]["#text"]
+    duration = end_date - start_date
 
+    pid = end_date + 100000000 * channel
+
+#assert not isinstance(lst, basestring)
+
+    title = bc["title"]
+    if isinstance(title,  dict):
+        line = title["#text"]
+    elif isinstance(title,  list):
+        line is title[0]["#text"]
+    else:
+        print "Title is niether list nor dict! Channel={0} Start={1} title={2} class={3}".format(channel_name, start_date, title,  title.__class__)
+        line = str(title)
+        
     if line:
         title = unidecode(line)
     else:
         title = 'Titolo Non Disponibile'
 
-#    line = pr["display_titles"].get("subtitle")
-#    if line:
-#        subtitle = unidecode(line)
-#    else:
     subtitle = None
-
     description = None
     ptype = None
     year = None
     country = None
     bid = None
     parental = None
-
-#    if pp:
-#        serie = pp["pid"]
-#    else:
     serie = None
-
     replica = None
 
     is_premiere = 0
@@ -127,15 +104,12 @@ for bc in js["tv"]["programme"]:
     episode = None
     thumbnail_url = None
 
-    #duration = bc["duration"]
-    duration = end_date - start_date
-
-    #p = ( pid, channel, end_date, title, subtitle, serie, duration )
-    p = (channel_name,  title,  end_date,  duration)
+    
+    p = ( pid, channel, end_date, title, subtitle, serie, duration )
     print p
     #~ print p
 
-#    c.execute('INSERT INTO show(id,channel,end_date,title,subtitle,serie,duration) \
+#   c.execute('INSERT INTO show(id,channel,end_date,title,subtitle,serie,duration) \
 #                VALUES(?,?,?,?,?,?,?)', p )
 
     #~ print ""
