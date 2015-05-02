@@ -60,6 +60,13 @@ for bc in js["tv"]["programme"]:
     end_date = int(datetime.datetime.strptime(pend.split('+')[0], '%Y%m%d%H%M%S ').strftime("%s"))
     end_date = end_date / 60
 
+    p = ( channel, end_date )
+    c.execute('SELECT id FROM show WHERE channel = ? AND end_date= ?', p)
+    row = c.fetchone()
+    if row:
+        #print 'Entry for show already present, skipping...'
+        continue;
+    
     # Calculate duration
     duration = end_date - start_date
     
