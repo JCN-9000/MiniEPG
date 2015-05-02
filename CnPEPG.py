@@ -51,7 +51,7 @@ for bc in js["tv"]["programme"]:
         continue
     channel = row[0]
   
-    # Get start/end dates (used later for duration)
+    # Get start/end dates 
     pstart = bc["@start"]
     start_date = int(datetime.datetime.strptime(pstart.split('+')[0], '%Y%m%d%H%M%S ').strftime("%s"))
     start_date = start_date / 60
@@ -60,12 +60,14 @@ for bc in js["tv"]["programme"]:
     end_date = int(datetime.datetime.strptime(pend.split('+')[0], '%Y%m%d%H%M%S ').strftime("%s"))
     end_date = end_date / 60
 
+    # Calculate duration
     duration = end_date - start_date
-
+    
+    # Generate unique ID from channel + timestamp
     pid = end_date + 100000000 * channel
-
-#assert not isinstance(lst, basestring)
-
+    
+    ptype = None
+    
     title = bc["title"]
     if isinstance(title,  dict):
         line = title["#text"]
@@ -74,15 +76,18 @@ for bc in js["tv"]["programme"]:
     else:
         print "Title is niether list nor dict! Channel={0} Start={1} title={2} class={3}".format(channel_name, start_date, title,  title.__class__)
         line = str(title)
-        
+    
     if line:
         title = unidecode(line)
+        if title[0:4] == 'dvd ':
+            title = title[4:]
+            ptype = 6 # FILM
     else:
         title = 'Titolo Non Disponibile'
 
+
     subtitle = None
     description = None
-    ptype = None
     year = None
     country = None
     bid = None
@@ -105,12 +110,12 @@ for bc in js["tv"]["programme"]:
     thumbnail_url = None
 
     
-    p = ( pid, channel, end_date, title, subtitle, serie, duration )
+    p = ( pid, channel, end_date, title, subtitle, serie, duration, ptype)
     print p
     #~ print p
 
-#   c.execute('INSERT INTO show(id,channel,end_date,title,subtitle,serie,duration) \
-#                VALUES(?,?,?,?,?,?,?)', p )
+    c.execute('INSERT INTO show(id,channel,end_date,title,subtitle,serie,duration,type) \
+    VALUES(?,?,?,?,?,?,?,?)', p )
 
     #~ print ""
 
