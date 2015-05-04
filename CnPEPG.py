@@ -21,7 +21,7 @@ with open(infil) as data_file:
 bc = js["tv"].get("programme")
 
 if not bc:
-    print "Nessun Programma Disponibile per", js["schedule"]["service"]["title"]
+    print "Nessun Programma Disponibile da cutandpasta.it"
     sys.exit(1)
 
 conn = sqlite3.connect('epg.v2.sqlite')
