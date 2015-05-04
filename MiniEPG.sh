@@ -31,6 +31,13 @@ do
 
 done
 
+#
+# Download CutAndPasta EPG xml file and use to complement tvblob data 
+#
+rm -f cnp-epg.xml cnp-epg.json
+wget -O cnp-epg.xml http://www.cutandpasta.it/xmltvita/epg.xml
+[ -f cnp-epg.xml ] && python xml2json.py -t xml2json -o cnp-epg.json cnp-epg.xml && python CnPEPG.py cnp-epg.json
+
 echo "-- SQL per EPG BBox" > MiniEPG-dopo.sql
 echo "-- Operazioni di Conclusione" >> MiniEPG-dopo.sql
 echo "-- " >> MiniEPG-dopo.sql
