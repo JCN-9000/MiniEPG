@@ -8,3 +8,6 @@ http://www.myblobbox.com/it/epg/
 - Aggiornare la BBox con il nuovo URL
 
 Vedere anche il [Wiki] (https://github.com/JCN-9000/MiniEPG/wiki) e la [Project Page] (http://jcn-9000.github.io/MiniEPG)
+
+# Nuovi Canali
+Vedi il Wiki: [Nuovi Canali] (https://github.com/JCN-9000/MiniEPG/wiki/Nuovi-Canali)
