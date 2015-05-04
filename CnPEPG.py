@@ -31,6 +31,8 @@ def _channel_name(name):
         newname = u'Rai Sport 1'
     elif name == u'Rai Sport2':
         newname = u'Rai Sport 2'
+    elif name == u'Tv2000':
+        newname = u'Tv 2000'
     elif name[0:9] == u'Rai 3 TGR':
         newname = u'Rai 3'
     else:
@@ -118,16 +120,22 @@ def main():
         line = _text(prog["title"])
         if line:
             title = unidecode(line)
-            if title[0:4] == 'dvd ':
+            if title[0:4] == u'dvd ':
                 title = title[4:]
                 ptype = 6 # FILM
+            elif title[0:20] == u'Recensione del film ':
+                title = title[20:]
+                ptype = 6 # FILM
+            elif title[0:11] == u'Soundtrack ':
+                title = title[11:]
+                ptype = 6
         else:
             title = 'Titolo Non Disponibile'
 
         description = None
         if prog.get("desc"):
             description = unidecode(_text(prog["desc"]))
-            print "** Desc \'{0}\'".format(description)
+            #print "** Desc \'{0}\'".format(description)
 
         params = (pid, channel, end_date, title, duration, ptype, description)
         #print params
