@@ -17,6 +17,7 @@ def _type(scat):
     """
     Handle categorization
     Needs some reworking on case management ( upper, lower, title ... )
+    Need to assign/invent categories to undefined ones.
     """
 
     xml_types = {
