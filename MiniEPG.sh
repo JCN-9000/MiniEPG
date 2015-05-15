@@ -38,6 +38,41 @@ rm -f cnp-epg.xml cnp-epg.json
 wget -O cnp-epg.xml http://www.cutandpasta.it/xmltvita/epg.xml
 [ -f cnp-epg.xml ] && python xml2json.py -t xml2json -o cnp-epg.json cnp-epg.xml && python CnPEPG.py cnp-epg.json
 
+#
+# manage rytec_clouditaly_xmltv
+#
+
+# get zip with pointers
+if [ ! -f files_crossepg_last.zip ]
+then
+    wget http://clouditaly.tk/files/files_crossepg_last.zip
+    unzip files_crossepg_last.zip
+    mv "files_crossepg(revD2)/rytec_clouditaly_xmltv.conf" .
+    rm -rf "files_crossepg(revD2)/"
+fi
+
+if [ -f rytec_clouditaly_xmltv.conf ]
+then
+# Cleanup file
+    sed -i -e 's/=/="/' rytec_clouditaly_xmltv.conf
+    sed -i -e 's/$/"/' rytec_clouditaly_xmltv.conf
+    sed -i -s 's/^"$//' rytec_clouditaly_xmltv.conf
+
+# Download XMLTV EPG
+    source rytec_clouditaly_xmltv.conf
+    wget $epg_url_0
+
+# Expand and load into DB
+    if [ -f rytecxmltvItaly.gz ]
+    then
+        gzip -cd rytecxmltvItaly.gz > rytecxmltvItaly.xml
+        python xml2json.py -t xml2json -o  rytecxmltvItaly.json rytecxmltvItaly.xml
+        python XMLTV_EPG.py rytecxmltvItaly.json
+    fi
+fi
+
+
+
 echo "-- SQL per EPG BBox" > MiniEPG-dopo.sql
 echo "-- Operazioni di Conclusione" >> MiniEPG-dopo.sql
 echo "-- " >> MiniEPG-dopo.sql
