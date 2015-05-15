@@ -24,10 +24,10 @@ do
 #    echo $Channel
     wget -q -O $Channel.0.xml http://epgadmin.tvblob.com/api/$Channel/programmes/schedules/today
     [ -f $Channel.0.xml  ] && python xml2json.py -t xml2json -o $Channel.0.json $Channel.0.xml && rm $Channel.0.xml
-    [ -f $Channel.0.json ] && python MiniEPG.py $Channel.0.json ; rm $Channel.0.json
+    [ -f $Channel.0.json ] && python TVBLOB_EPG.py $Channel.0.json ; rm $Channel.0.json
     wget -q -O $Channel.1.xml http://epgadmin.tvblob.com/api/$Channel/programmes/schedules/tomorrow
     [ -f $Channel.1.xml  ] && python xml2json.py -t xml2json -o $Channel.1.json $Channel.1.xml && rm $Channel.1.xml 
-    [ -f $Channel.1.json ] && python MiniEPG.py $Channel.1.json ; rm $Channel.1.json
+    [ -f $Channel.1.json ] && python TVBLOB_EPG.py $Channel.1.json ; rm $Channel.1.json
 
 done
 
@@ -36,7 +36,7 @@ done
 #
 rm -f cnp-epg.xml cnp-epg.json
 wget -O cnp-epg.xml http://www.cutandpasta.it/xmltvita/epg.xml
-[ -f cnp-epg.xml ] && python xml2json.py -t xml2json -o cnp-epg.json cnp-epg.xml && python CnPEPG.py cnp-epg.json
+[ -f cnp-epg.xml ] && python xml2json.py -t xml2json -o cnp-epg.json cnp-epg.xml && python XMLTV_EPG.py cnp-epg.json
 
 #
 # manage rytec_clouditaly_xmltv
