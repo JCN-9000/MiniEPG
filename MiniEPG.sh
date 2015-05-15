@@ -53,13 +53,17 @@ fi
 
 if [ -f rytec_clouditaly_xmltv.conf ]
 then
+    if [ ! -f rytec_clouditaly_xmltv.sh ]
+    then
 # Cleanup file
-    sed -i -e 's/=/="/' rytec_clouditaly_xmltv.conf
-    sed -i -e 's/$/"/' rytec_clouditaly_xmltv.conf
-    sed -i -s 's/^"$//' rytec_clouditaly_xmltv.conf
+        sed -i -e 's/=/="/' rytec_clouditaly_xmltv.conf
+        sed -i -e 's/$/"/' rytec_clouditaly_xmltv.conf
+        sed -i -s 's/^"$//' rytec_clouditaly_xmltv.conf
+        cp rytec_clouditaly_xmltv.conf rytec_clouditaly_xmltv.sh
+    fi
 
 # Download XMLTV EPG
-    source rytec_clouditaly_xmltv.conf
+    source rytec_clouditaly_xmltv.sh
     wget $epg_url_0
 
 # Expand and load into DB
@@ -68,6 +72,7 @@ then
         gzip -cd rytecxmltvItaly.gz > rytecxmltvItaly.xml
         python xml2json.py -t xml2json -o  rytecxmltvItaly.json rytecxmltvItaly.xml
         python XMLTV_EPG.py rytecxmltvItaly.json
+        rm rytecxmltvItaly.json
     fi
 fi
 
