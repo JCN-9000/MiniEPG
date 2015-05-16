@@ -36,3 +36,13 @@ Istruzioni per l'utilizzo di MiniEPG.
   $  ls -l epg.v2.sqlite.zip
 
 	-rw-r--r-- 1 avi avi 104457 Apr 19 18:11 epg.v2.sqlite.zip
+
+ ============
+ Nuovi Canali
+
+ Per aggiungere i nuovi canali alla BB:
+  
+ $ bash AddChannels.sh
+
+ verranno aggiunti 14 nuovi canali che si aggiurneranno al prossimo lancio.
+
