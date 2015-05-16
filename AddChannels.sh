@@ -3,6 +3,7 @@
 [ -f AddChannels.sql ] && echo "Channels already there" && exit 1
 
 cat > AddChannels.sql <<EOD
+DELETE FROM channel where id BETWEEN 400 and 500 ;
 INSERT INTO channel VALUES(401,'Giallo','29.516.16','',38,0,'Europe/Rome',0);
 INSERT INTO channel VALUES(402,'TOPcrime','272.905.2150','',39,0,'Europe/Rome',0);
 INSERT INTO channel VALUES(403,'Boing','272.905.145','',40,0,'Europe/Rome',0);
