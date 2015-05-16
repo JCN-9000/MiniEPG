@@ -15,12 +15,14 @@ INSERT INTO channel VALUES(408,'DMAX','29.516.50','',52,0,'Europe/Rome',0);
 INSERT INTO channel VALUES(409,'Focus TV','8572.31000.25','',56,0,'Europe/Rome',0);
 INSERT INTO channel VALUES(410,'Fine Living','272.905.154','',49,0,'Europe/Rome',0);
 INSERT INTO channel VALUES(411,'Marco Polo','29.514.102/29.514.75','',61,0,'Europe/Rome',0);
-INSERT INTO channel VALUES(412,'Nuvolari','29.514.101/29.514.85','',65,0,'Europe/Rome',0);
+INSERT INTO channel VALUES(412,'Nuvolari','29.514.101/29.514.85','',60,0,'Europe/Rome',0);
 INSERT INTO channel VALUES(413,'Alice','29.514.70','',221,0,'Europe/Rome',0);
-INSERT INTO channel VALUES(414,'Leonardo','29.514.105/29.514.80','',222,0,'Europe/Rome',0);
+INSERT INTO channel VALUES(414,'Leonardo','29.514.105/29.514.80','',62,0,'Europe/Rome',0);
 INSERT INTO channel VALUES(415,'HSE24','29.516.22','',37,0,'Europe/Rome',0);
 INSERT INTO channel VALUES(416,'Agon','29.516.10','',33,0,'Europe/Rome',0);
-INSERT INTO channel VALUES(417,'RTL 102.5 TV','29.516.21','',36,'Europe/Rome',0);
+INSERT INTO channel VALUES(417,'RTL 102.5 TV','29.516.21','',36,0,'Europe/Rome',0);
+INSERT INTO channel VALUES(418,'Gazzetta TV','29.514.50','',59,0,'Europe/Rome',0);
+INSERT INTO channel VALUES(419,'Rai Scuola','318.2.8564','',146,0,'Europe/Rome',0);
 EOD
 
 unzip -o epg.v2.sqlite.zip
