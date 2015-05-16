@@ -11,3 +11,6 @@ Vedere anche il [Wiki] (https://github.com/JCN-9000/MiniEPG/wiki) e la [Project 
 
 # Nuovi Canali
 Vedi il Wiki: [Nuovi Canali] (https://github.com/JCN-9000/MiniEPG/wiki/Nuovi-Canali)
+
+# Nuove Fonti
+Per migliorare i contenuti segnalateci fonti web che pubblicano EPG in formato XML o JSON, se possibile cercheremo di integrarle, così da avere nuovi canali nel palinsesto.

@@ -62,6 +62,7 @@ for bc in js["schedule"]["day"]["broadcasts"]["broadcast"]:
     line = pr["display_titles"].get("title")
     if line:
         title = unidecode(line)
+        title = title.title()
     else:
         title = 'Titolo Non Disponibile'
 
