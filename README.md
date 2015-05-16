@@ -10,7 +10,14 @@ http://www.myblobbox.com/it/epg/
 Vedere anche il [Wiki] (https://github.com/JCN-9000/MiniEPG/wiki) e la [Project Page] (http://jcn-9000.github.io/MiniEPG)
 
 # Nuovi Canali
+
 Vedi il Wiki: [Nuovi Canali] (https://github.com/JCN-9000/MiniEPG/wiki/Nuovi-Canali)
 
 # Nuove Fonti
 Per migliorare i contenuti segnalateci fonti web che pubblicano EPG in formato XML o JSON, se possibile cercheremo di integrarle, così da avere nuovi canali nel palinsesto.
+
+## Ringraziamenti
+Un ringraziamento per i loro contributi, attivi o inconsapevoli a: 
+- [CutandPasta](http://www.cutandpasta.it/?p=585)
+- [CloudItaly](http://www.clouditaly.tk/)
+- [Paul](https://github.com/pslh)
