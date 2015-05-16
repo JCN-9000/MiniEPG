@@ -20,86 +20,9 @@ def _type(scat):
     Need to assign/invent categories to undefined ones.
     """
 
-    xml_types = {
-    'Altri Eventi Sportivi': 7,
-    'Animazioni': 16,
-    'Approfondimento': 0,
-    'Attualita\'': 6,
-    'Avventura' : 0,
-    'Azione' : 0,
-    'Biografico' : 0,
-    'Cartone animato' : 16,
-    'Cartoon' : 16,
-    'Comico' : 0,
-    'Commedia' : 0,
-    'Concerto' : 17,
-    'Cucina e Sapori' : 29,
-    'Cultura' : 24,
-    'Dibattito' : 0,
-    'Di Montaggio' : 0,
-    'Divulgazione Scientifico/Culturale' : 0,
-    'Docu-Fiction' : 0,
-    'Documentari' : 12,
-    'Documentario' : 12,
-    'Documentaristico' : 12,
-    'Docu-Soap' : 15,
-    'Docutainment' : 12,
-    'Drammatico' : 0,
-    'Fantascienza' : 0,
-    'Fantastico/Favolistico' : 0,
-    'Fiction' : 0,
-    'Film' : 6,
-    'Film TV' : 6,
-    'Funzione Religiosa' : 25,
-    'Game show' : 14,
-    'Game Show/Quiz' : 14,
-    'Giallo' : 0,
-    'Guerra' : 0,
-    'Horror' : 0,
-    'Intrattenimento' : 3,
-    'Manifestazione Sportiva' : 7,
-    'Mondo e tendenze' : 4,
-    'Musica' : 17,
-    'Natura/Ambiente/Etnologia' : 0,
-    'News' : 2,
-    'Novelas' : 8,
-    'Poliziesco' : 0,
-    'Programma di servizio' : 0,
-    'Programma musicale' : 17,
-    'Programmi culturali' : 24,
-    'Programmi religiosi' : 25,
-    'Reality' : 19,
-    'Real TV' : 19,
-    'Religione' : 25,
-    'Riassunto telenovelas' : 8,
-    'Rotocalco' : 0,
-    'Rubrica attualita\' sportiva' : 7,
-    'Rubrica autopromozionale' : 0,
-    'Rubrica di attualita\'' : 2,
-    'Rubrica di servizio' : 0,
-    'Salute' : 26,
-    'Sentimentale' : 0,
-    'Serie' : 9,
-    'Shopping' : 21,
-    'Sit-com' : 22,
-    'Sitcom' : 22,
-    'Soap' : 15,
-    'Soap opera' : 15,
-    'Spionaggio' : 20,
-    'Sport' : 7,
-    'Storico' : 0,
-    'Talk show' : 11,
-    'Telefilm' : 9,
-    'Telenovela' : 8,
-    'Telegiornale' : 2,
-    'Telegiornale sportivo' : 2,
-    'Telegiornali' : 2,
-    'Thriller' : 0,
-    'Turismo/geografia/etnologia' : 0,
-    'Varieta\'' : 0,
-    'Western' : 0,
-    }
-
+    with open("types.json") as types_file:
+        js = json.load(types_file)
+       
     typ=None
 
     if scat:
@@ -110,7 +33,7 @@ def _type(scat):
             cat = scat.get("#text")
         cat=cat.split('<')[0]
 
-        xtyp = xml_types.get(cat.title())
+        xtyp = js["xml_types"].get(cat.title())
         if xtyp:
             typ=xtyp
 
@@ -120,27 +43,16 @@ def _type(scat):
 def _channel_name(name):
     """
     Handle inconsistent spelling of channel names
+    Load external alias file: aliases.json
     """
-    if name == u'Rete 4':
-        newname = u'Rete4'
-    elif name == u'Canale 5':
-        newname = u'Canale5'
-    elif name == u'Italia 1':
-        newname = u'Italia1'
-    elif name == u'La 5':
-        newname = u'La5'
-    elif name == u'La7d':
-        newname = u'La7D'
-    elif name == u'Rai Sport1':
-        newname = u'Rai Sport 1'
-    elif name == u'Rai Sport2':
-        newname = u'Rai Sport 2'
-    elif name == u'Tv2000':
-        newname = u'Tv 2000'
-    elif name[0:9] == u'Rai 3 TGR':
-        newname = u'Rai 3'
-    else:
-        newname = name
+
+    with open("aliases.json") as alias_file:
+        js = json.load(alias_file)
+
+    newname = js["aliases"].get(name)
+    if not newname:
+        newname=name
+
     return newname
 
 def _mins_since_epoch(datestring):
@@ -264,3 +176,4 @@ if __name__ == "__main__":
     main()
 
 # vim: tabstop=8 expandtab shiftwidth=4 softtabstop=4
+
