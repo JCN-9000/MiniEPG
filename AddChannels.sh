@@ -17,6 +17,8 @@ INSERT INTO channel VALUES(411,'Marco Polo','29.514.102/29.514.75','',61,0,'Euro
 INSERT INTO channel VALUES(412,'Nuvolari','29.514.101/29.514.85','',65,0,'Europe/Rome',0);
 INSERT INTO channel VALUES(413,'Alice','29.514.70','',221,0,'Europe/Rome',0);
 INSERT INTO channel VALUES(414,'Leonardo','29.514.105/29.514.80','',222,0,'Europe/Rome',0);
+INSERT INTO channel VALUES(415,'HSE24','29.516.22','',37,0,'Europe/Rome',0);
+INSERT INTO channel VALUES(416,'Agon','29.516.10','',33,0,'Europe/Rome',0);
 EOD
 
 unzip -o epg.v2.sqlite.zip

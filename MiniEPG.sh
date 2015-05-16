@@ -72,7 +72,7 @@ then
     then
         gzip -cd rytecxmltvItaly.gz > rytecxmltvItaly.xml
         python xml2json.py -t xml2json -o  rytecxmltvItaly.json rytecxmltvItaly.xml
-        python XMLTV_EPG.py rytecxmltvItaly.json
+        python XMLTV_EPG.py rytecxmltvItaly.json | tee rytecxmltvItaly.log
         rm rytecxmltvItaly.json
     fi
 fi
