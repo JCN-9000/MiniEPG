@@ -65,7 +65,7 @@ then
 # Download XMLTV EPG
     source rytec_clouditaly_xmltv.sh
     rm rytecxmltvItaly.gz
-    wget $epg_url_0
+    wget -q $epg_url_0
 
 # Expand and load into DB
     if [ -f rytecxmltvItaly.gz ]
