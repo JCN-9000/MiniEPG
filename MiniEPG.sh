@@ -3,8 +3,8 @@
 # Download http://epgadmin.tvblob.com/api/services
 # Loop in keys and get EPG
 
-[ -f services.xml ] || wget -O services.xml http://epgadmin.tvblob.com/api/services
-[ -f epg.v2.sqlite.zip ] || wget http://epgadmin.tvblob.com/static/epg.v2.sqlite.zip
+[ -f services.xml ] || wget -q -O services.xml http://epgadmin.tvblob.com/api/services
+[ -f epg.v2.sqlite.zip ] || wget -q http://epgadmin.tvblob.com/static/epg.v2.sqlite.zip
 unzip -o epg.v2.sqlite.zip
 
 python xml2json.py -t xml2json --pretty -o services.json services.xml
@@ -35,7 +35,7 @@ done
 # Download CutAndPasta EPG xml file and use to complement tvblob data 
 #
 rm -f cnp-epg.xml cnp-epg.json
-wget -O cnp-epg.xml http://www.cutandpasta.it/xmltvita/epg.xml
+wget -q -O cnp-epg.xml http://www.cutandpasta.it/xmltvita/epg.xml
 [ -f cnp-epg.xml ] && python xml2json.py -t xml2json -o cnp-epg.json cnp-epg.xml && python XMLTV_EPG.py cnp-epg.json
 
 #
@@ -45,7 +45,7 @@ wget -O cnp-epg.xml http://www.cutandpasta.it/xmltvita/epg.xml
 # get zip with pointers
 if [ ! -f files_crossepg_last.zip ]
 then
-    wget http://clouditaly.tk/files/files_crossepg_last.zip
+    wget -q http://clouditaly.tk/files/files_crossepg_last.zip
     unzip files_crossepg_last.zip
     mv "files_crossepg(revD2)/rytec_clouditaly_xmltv.conf" .
     rm -rf "files_crossepg(revD2)/"
@@ -60,7 +60,8 @@ then
 
 # Download XMLTV EPG
     source rytec_clouditaly_xmltv.conf
-    wget $epg_url_0
+    rm rytecxmltvItaly.gz
+    wget -q $epg_url_0
 
 # Expand and load into DB
     if [ -f rytecxmltvItaly.gz ]
