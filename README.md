@@ -18,6 +18,6 @@ Per migliorare i contenuti segnalateci fonti web che pubblicano EPG in formato X
 
 ## Ringraziamenti
 Un ringraziamento per i loro contributi, attivi o inconsapevoli a: 
-- [CutandPasta](http://www.cutandpasta.it/?p=585)
 - [CloudItaly](http://www.clouditaly.tk/)
+- [CutandPasta](http://www.cutandpasta.it/?p=585)
 - [Paul](https://github.com/pslh)
