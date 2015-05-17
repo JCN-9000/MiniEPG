@@ -19,6 +19,7 @@ echo "-- PRAGMA journal_mode = MEMORY; " >> MiniEPG-prima.sql
 echo "-- BEGIN TRANSACTION; "            >> MiniEPG-prima.sql
 sqlite3 epg.v2.sqlite < MiniEPG-prima.sql
 
+echo "Download EPG da TVBLOB"
 grep key services.json | tr -d '",' | while read Key Channel
 do
 #    echo $Channel
@@ -34,6 +35,7 @@ done
 #
 # Download CutAndPasta EPG xml file and use to complement tvblob data 
 #
+echo "Download EPG da CutAndPasta"
 rm -f cnp-epg.xml cnp-epg.json
 wget -q -O cnp-epg.xml http://www.cutandpasta.it/xmltvita/epg.xml
 [ -f cnp-epg.xml ] && python xml2json.py -t xml2json -o cnp-epg.json cnp-epg.xml && python XMLTV_EPG.py cnp-epg.json
@@ -42,6 +44,7 @@ wget -q -O cnp-epg.xml http://www.cutandpasta.it/xmltvita/epg.xml
 # manage rytec_clouditaly_xmltv
 #
 
+echo "Download EPG da CloudItaly"
 # get zip with pointers 
 if [ ! -f files_crossepg_last.zip ]
 then
