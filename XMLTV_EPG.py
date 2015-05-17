@@ -1,9 +1,10 @@
 #!/usr/bin/python
 
 """
-# Legge JSON file creato da cutandpasta.it epg.xml e aggiorna DB sqlite
+# Legge JSON file n format XMLTV e aggiorna DB sqlite
 # Vedi anche
 # http://www.cutandpasta.it
+# http://sat.alfa-tech.net/clouditaly/rytecxmltvItaly.gz
 """
 
 import sys
@@ -22,7 +23,7 @@ def _type(scat):
 
     with open("types.json") as types_file:
         js = json.load(types_file)
-       
+
     typ=None
 
     if scat:
@@ -97,6 +98,8 @@ def main():
     conn = sqlite3.connect('epg.v2.sqlite')
     cursor = conn.cursor()
 
+    chskip=()
+    chkeep=()
     for prog in jsondata["tv"]["programme"]:
         channel_name = _channel_name(prog["@channel"])
 
@@ -105,8 +108,14 @@ def main():
         cursor.execute('SELECT id FROM channel WHERE name = ?', params)
         row = cursor.fetchone()
         if not row:
-            print "Ignoring unrecognised channel  \"{0}\" ".format(channel_name)
+            if channel_name not in chskip:
+                print "Ignoring unrecognised channel  \"{0}\" ".format(channel_name)
+                chskip=channel_name
             continue
+        if channel_name not in chkeep:
+            print "Analisi dati EPG del canale   \"{0}\" ".format(channel_name)
+            chkeep=channel_name
+
         channel = row[0]
 
         # Get start/end dates
@@ -147,7 +156,7 @@ def main():
                 ptype = 6
         else:
             title = 'Titolo Non Disponibile'
-        
+
         typ = _type(prog.get("category"))
         if typ:
             if not ptype:
@@ -159,8 +168,9 @@ def main():
             #print "** Desc \'{0}\'".format(description)
 
         params = (pid, channel, end_date, title, duration, ptype, description)
-        #print params
-        print unidecode(channel_name), end_date, title, duration
+        #~ print params
+        #~ print unidecode(channel_name), end_date, title, duration
+        #~ print ".",
 
         cursor.execute('INSERT INTO show(id,channel,end_date,title,\
         duration,type,description) \
