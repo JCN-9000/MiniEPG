@@ -42,10 +42,10 @@ wget -q -O cnp-epg.xml http://www.cutandpasta.it/xmltvita/epg.xml
 # manage rytec_clouditaly_xmltv
 #
 
-# get zip with pointers
+# get zip with pointers 
 if [ ! -f files_crossepg_last.zip ]
 then
-    wget -q http://clouditaly.tk/files/files_crossepg_last.zip
+    wget -q -N http://clouditaly.tk/files/files_crossepg_last.zip
     unzip files_crossepg_last.zip
     mv "files_crossepg(revD2)/rytec_clouditaly_xmltv.conf" .
     rm -rf "files_crossepg(revD2)/"
@@ -62,16 +62,16 @@ then
         cp rytec_clouditaly_xmltv.conf rytec_clouditaly_xmltv.sh
     fi
 
-# Download XMLTV EPG
+# Download XMLTV EPG - Only if it has changed since last time.
     source rytec_clouditaly_xmltv.sh
-    rm rytecxmltvItaly.gz
-    wget -q $epg_url_0
+    wget -q -N $epg_url_0 || wget -q -N $epg_url_1
 
 # Expand and load into DB
     if [ -f rytecxmltvItaly.gz ]
     then
         rm rytecxmltvItaly.json
         gzip -cd rytecxmltvItaly.gz > rytecxmltvItaly.xml
+        touch -r rytecxmltvItaly.gz rytecxmltvItaly.xml
         python xml2json.py -t xml2json -o  rytecxmltvItaly.json rytecxmltvItaly.xml
         python XMLTV_EPG.py rytecxmltvItaly.json | tee rytecxmltvItaly.log
     fi
@@ -95,5 +95,4 @@ zip -u epg.v2.sqlite.zip epg.v2.sqlite
 
 
 # vim: tabstop=8 expandtab shiftwidth=4 softtabstop=4
-
 
