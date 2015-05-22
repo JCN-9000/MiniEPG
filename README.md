@@ -21,3 +21,4 @@ Un ringraziamento per i loro contributi, attivi o inconsapevoli a:
 - [CloudItaly](http://www.clouditaly.tk/)
 - [CutandPasta](http://www.cutandpasta.it/?p=585)
 - [Paul](https://github.com/pslh)
+- Il mondo OpenSource che rende disponibili i vari tool utilizzati
