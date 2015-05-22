@@ -71,4 +71,7 @@ Istruzioni per l'utilizzo di MiniEPG.
   Ora copiate i files che trovate nella cartella Windows e ricoprite gli omonimi file esistenti
   nella cartella miniEPG
   
+  HFS è un programma per la condivisione di files via http, usatelo per rendere disponibile 
+  il file epg.v2.sqlite.zip alla BB
+
   Potrebbero ancora verificarsi degli errori, non tutto è ancora funzionante al 100%
