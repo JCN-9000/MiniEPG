@@ -1,9 +1,10 @@
 #!/usr/bin/python
 
 """
-# Legge JSON file creato da cutandpasta.it epg.xml e aggiorna DB sqlite
+# Legge JSON file n format XMLTV e aggiorna DB sqlite
 # Vedi anche
 # http://www.cutandpasta.it
+# http://sat.alfa-tech.net/clouditaly/rytecxmltvItaly.gz
 """
 
 import sys
@@ -13,38 +14,62 @@ import json
 
 from unidecode import unidecode
 
+def _type(scat):
+    """
+    Handle categorization
+    Needs some reworking on case management ( upper, lower, title ... )
+    Need to assign/invent categories to undefined ones.
+    """
+
+    with open("types.json") as types_file:
+        js = json.load(types_file)
+
+    typ=None
+
+    if scat:
+        #~ print scat
+        if isinstance(scat,list):
+            cat = scat[0].get("#text")
+        else:
+            cat = scat.get("#text")
+        cat=cat.split('<')[0]
+
+        xtyp = js["xml_types"].get(cat.title())
+        if xtyp:
+            typ=xtyp
+
+        #~ print typ, cat
+    return typ
+
 def _channel_name(name):
     """
     Handle inconsistent spelling of channel names
+    Load external alias file: aliases.json
     """
-    if name == u'Rete 4':
-        newname = u'Rete4'
-    elif name == u'Canale 5':
-        newname = u'Canale5'
-    elif name == u'Italia 1':
-        newname = u'Italia1'
-    elif name == u'La 5':
-        newname = u'La5'
-    elif name == u'La7d':
-        newname = u'La7D'
-    elif name == u'Rai Sport1':
-        newname = u'Rai Sport 1'
-    elif name == u'Rai Sport2':
-        newname = u'Rai Sport 2'
-    elif name == u'Tv2000':
-        newname = u'Tv 2000'
-    elif name[0:9] == u'Rai 3 TGR':
-        newname = u'Rai 3'
-    else:
-        newname = name
+
+    with open("aliases.json") as alias_file:
+        js = json.load(alias_file)
+
+    newname = js["aliases"].get(name)
+    if not newname:
+        newname=name
+
     return newname
 
 def _mins_since_epoch(datestring):
     """
     Minutes since the Epoch from a given date string
     """
-    return int(datetime.datetime.strptime(datestring.split('+')[0],
-            '%Y%m%d%H%M%S ').strftime("%s")) / 60
+    epoch = datetime.datetime(1970,1,1)
+    sometime = datetime.datetime.strptime(datestring.split('+')[0],
+        '%Y%m%d%H%M%S ')
+     
+    return ( sometime - epoch ).total_seconds() / 60
+    
+
+#    int(datetime.datetime.strptime(datestring.split('+')[0],
+#        '%Y%m%d%H%M%S ').strftime("%s")) / 60
+    
 
 def _text(title):
     """
@@ -81,6 +106,8 @@ def main():
     conn = sqlite3.connect('epg.v2.sqlite')
     cursor = conn.cursor()
 
+    chskip=()
+    chkeep=()
     for prog in jsondata["tv"]["programme"]:
         channel_name = _channel_name(prog["@channel"])
 
@@ -89,8 +116,14 @@ def main():
         cursor.execute('SELECT id FROM channel WHERE name = ?', params)
         row = cursor.fetchone()
         if not row:
-            print "Ignoring unrecognised channel  \"{0}\" ".format(channel_name)
+            if channel_name not in chskip:
+                print "Ignoring unrecognised channel  \"{0}\" ".format(channel_name)
+                chskip=channel_name
             continue
+        if channel_name not in chkeep:
+            print "Analisi dati EPG del canale   \"{0}\" ".format(channel_name)
+            chkeep=channel_name
+
         channel = row[0]
 
         # Get start/end dates
@@ -132,14 +165,20 @@ def main():
         else:
             title = 'Titolo Non Disponibile'
 
+        typ = _type(prog.get("category"))
+        if typ:
+            if not ptype:
+                ptype = typ
+
         description = None
         if prog.get("desc"):
             description = unidecode(_text(prog["desc"]))
             #print "** Desc \'{0}\'".format(description)
 
         params = (pid, channel, end_date, title, duration, ptype, description)
-        #print params
-        print unidecode(channel_name), end_date, title, duration
+        #~ print params
+        #~ print unidecode(channel_name), end_date, title, duration
+        #~ print ".",
 
         cursor.execute('INSERT INTO show(id,channel,end_date,title,\
         duration,type,description) \
@@ -155,3 +194,4 @@ if __name__ == "__main__":
     main()
 
 # vim: tabstop=8 expandtab shiftwidth=4 softtabstop=4
+

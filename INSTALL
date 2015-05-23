@@ -36,3 +36,42 @@ Istruzioni per l'utilizzo di MiniEPG.
   $  ls -l epg.v2.sqlite.zip
 
 	-rw-r--r-- 1 avi avi 104457 Apr 19 18:11 epg.v2.sqlite.zip
+
+ ============
+ Nuovi Canali
+
+ Per aggiungere i nuovi canali alla BB:
+  
+ $ bash AddChannels.sh
+
+ verranno aggiunti 14 nuovi canali che si aggiurneranno al prossimo lancio.
+
+ ----------------------
+
+ ** Windows
+
+  Per utilizzare questo programma su PC Windows occorre installare alcuni requisiti,
+  rendendo così il sistema Windows adatto a eseguire i vari componenti.
+
+  Armatevi di pazienza e scaricate dai rispettivi siti e installate secondo le rispettive modalità:
+
+  7-zip  - http://www.7-zip.org/download.html
+  Gow    - https://github.com/bmatzelle/gow/releases - Vedi Nota (1)
+  Python - http://www.python.it/download/
+    Unidecode plugin - https://pypi.python.org/pypi/Unidecode - Nota (2)
+  sqlite - https://www.sqlite.org/download.html - Nota (3)
+  HFS    - http://www.rejetto.com/hfs/ - Nota (4)
+
+  Note.
+  (1) Dopo aver installato Gow creare nella cartella di installazione la cartella 'etc'
+  (2) Installare il plugin: python setup.py install
+  (3) Copiate il programma sqlite.exe nella cartella MiniEPG
+  (4) Opzionale: Copiate il programma HFS.exe nella cartella MiniEPG 
+
+  Ora copiate i files che trovate nella cartella Windows e ricoprite gli omonimi file esistenti
+  nella cartella miniEPG
+  
+  HFS è un programma per la condivisione di files via http, usatelo per rendere disponibile 
+  il file epg.v2.sqlite.zip alla BB
+
+  Potrebbero ancora verificarsi degli errori, non tutto è ancora funzionante al 100%
