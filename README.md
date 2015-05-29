@@ -1,8 +1,9 @@
 # MiniEPG
-Aggiorna un file con la EPG per BlobBox 
-http://www.myblobbox.com/it/epg/
+Crea una EPG compatibile con la BlobBox Telesystem a partire da varie fonti.  
+[Web EPB](http://www.myblobbox.com/it/epg/)
 
-# Utilizzo
+# Installazione e Utilizzo
+- Seguire le istruzioni su [INSTALL](https://github.com/JCN-9000/MiniEPG/edit/master/INSTALL)
 - Eseguire MiniEPG.sh in una cartella vuota
 - Copiare il file epg.v2.sqlite.zip su un server web
 - Aggiornare la BBox con il nuovo URL
