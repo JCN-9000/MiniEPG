@@ -1,6 +1,13 @@
 #!/bin/bash
+# Linux
 
 [ -f AddChannels.sql ] && echo "Channels already there" && exit 1
+
+UNZIP='/usr/bin/zip'
+ZIP='/usr/bin/zip'
+SQLITE3='/usr/bin/sqlite3'
+UNZIP_OPT='o'
+ZIP_OPT='-u'
 
 cat > AddChannels.sql <<EOD
 DELETE FROM channel where id BETWEEN 400 and 500 ;
@@ -25,9 +32,9 @@ INSERT INTO channel VALUES(418,'Gazzetta TV','29.514.50','',59,0,'Europe/Rome',0
 INSERT INTO channel VALUES(419,'Rai Scuola','318.2.8564','',146,0,'Europe/Rome',0);
 EOD
 
-unzip -o epg.v2.sqlite.zip
-sqlite3 epg.v2.sqlite < AddChannels.sql
-zip -u epg.v2.sqlite.zip epg.v2.sqlite
+$UNZIP $UNZIP_OPT epg.v2.sqlite.zip
+$SQLITE3 epg.v2.sqlite < AddChannels.sql
+$ZIP $ZIP_OPT epg.v2.sqlite.zip epg.v2.sqlite
 
 echo "Channels Added"
 exit 0

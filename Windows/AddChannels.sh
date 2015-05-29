@@ -1,9 +1,13 @@
 #!/bin/bash
+# Windows
 
 [ -f AddChannels.sql ] && echo "Channels already there" && exit 1
 
 UNZIP='C:\Progra~1\7-Zip\7z.exe'
 ZIP='C:\Progra~1\7-Zip\7z.exe'
+SQLITE3='./sqlite3.exe'
+UNZIP_OPT='x -y'
+ZIP_OPT='u'
 
 cat > AddChannels.sql <<EOD
 DELETE FROM channel where id BETWEEN 400 and 500 ;
@@ -28,9 +32,9 @@ INSERT INTO channel VALUES(418,'Gazzetta TV','29.514.50','',59,0,'Europe/Rome',0
 INSERT INTO channel VALUES(419,'Rai Scuola','318.2.8564','',146,0,'Europe/Rome',0);
 EOD
 
-$UNZIP x -y epg.v2.sqlite.zip
-./sqlite3 epg.v2.sqlite < AddChannels.sql
-$ZIP u epg.v2.sqlite.zip epg.v2.sqlite
+$UNZIP $UNZIP_OPT epg.v2.sqlite.zip
+$SQLITE3 epg.v2.sqlite < AddChannels.sql
+$ZIP $ZIP_OPT epg.v2.sqlite.zip epg.v2.sqlite
 
 echo "Channels Added"
 exit 0

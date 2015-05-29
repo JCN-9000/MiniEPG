@@ -60,9 +60,14 @@ def _mins_since_epoch(datestring):
     """
     Minutes since the Epoch from a given date string
     """
-    return int(datetime.datetime.strptime(datestring.split('+')[0],
-            '%Y%m%d%H%M%S ').strftime("%s")) / 60
-
+#    return int(datetime.datetime.strptime(datestring.split('+')[0],
+#            '%Y%m%d%H%M%S ').strftime("%s")) / 60
+    epoch = datetime.datetime(1970,1,1)
+    sometime = datetime.datetime.strptime(datestring.split('+')[0],
+        '%Y%m%d%H%M%S ')
+     
+    return ( sometime - epoch ).total_seconds() / 60
+        
 def _text(title):
     """
     Extract text from tag element - if there are multiple elements, use first
@@ -80,10 +85,51 @@ def _text(title):
         text = str(title)
     return text
 
+def _CleanupTitle(tit):
+
+    tit = tit.replace('Film ','')
+    tit = tit.replace('Telefilm ','')
+    tit = tit.replace(' Xxvii', ' XXVII')
+    tit = tit.replace(' Xxvi', ' XXVI')
+    tit = tit.replace(' Xxv', ' XXV')
+    tit = tit.replace(' Xxiv', ' XXIV')
+    tit = tit.replace(' Xxiii', ' XXIII')
+    tit = tit.replace(' Xxii', ' XXII')
+    tit = tit.replace(' Xxi', ' XXI')
+    tit = tit.replace(' Xx ', ' XX')
+    tit = tit.replace(' Xix', ' XIX')
+    tit = tit.replace(' Xviii', ' XVIII')
+    tit = tit.replace(' Xvii', ' XVII')
+    tit = tit.replace(' Xvi', ' XVI')
+    tit = tit.replace(' Xv', ' XV')
+    tit = tit.replace(' Xiv', ' XIV')
+    tit = tit.replace(' Xiii', ' XIII')
+    tit = tit.replace(' Xii', ' XII')
+    tit = tit.replace(' Xi', ' XI')
+    tit = tit.replace(' Ix',  ' IX')
+    tit = tit.replace(' Viii',' VIII')
+    tit = tit.replace(' Vii', ' VII')
+    tit = tit.replace(' Vi',  ' VI')
+    tit = tit.replace(' Iv',  ' IV')
+    tit = tit.replace(' Iii', ' III')
+    tit = tit.replace(' Ii',  ' II')
+    tit = tit.replace('Xxi', 'XXI')
+    tit = tit.replace('Tgcom','TGCOM')
+    tit = tit.replace('Tgr','TGR')
+    tit = tit.replace('Tg','TG')
+    tit = tit.replace('Wwe','WWE')
+    tit = tit.replace('Wta','WTA')
+    tit = tit.replace('Mtv','MTV')
+##    tit = unidecode(tit).replace('\\','')
+    tit = tit.replace('\\','')
+    return tit
+
+
 def main():
     """
     Parse JSON file, update SQLIte DB
     """
+
     filename = sys.argv[1]
 
     with open(filename) as data_file:
@@ -156,6 +202,8 @@ def main():
                 ptype = 6
         else:
             title = 'Titolo Non Disponibile'
+        title = title.title()
+        title = _CleanupTitle(title)
 
         typ = _type(prog.get("category"))
         if typ:
