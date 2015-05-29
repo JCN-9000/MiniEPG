@@ -2,7 +2,8 @@
 Aggiorna un file con la EPG per BlobBox 
 http://www.myblobbox.com/it/epg/
 
-# Utilizzo
+# Installazione e Utilizzo
+- Seguire le istruzioni su [INSTALL](https://github.com/JCN-9000/MiniEPG/edit/master/INSTALL)
 - Eseguire MiniEPG.sh in una cartella vuota
 - Copiare il file epg.v2.sqlite.zip su un server web
 - Aggiornare la BBox con il nuovo URL
@@ -21,3 +22,4 @@ Un ringraziamento per i loro contributi, attivi o inconsapevoli a:
 - [CloudItaly](http://www.clouditaly.tk/)
 - [CutandPasta](http://www.cutandpasta.it/?p=585)
 - [Paul](https://github.com/pslh)
+- Il mondo OpenSource che rende disponibili i vari tool utilizzati
