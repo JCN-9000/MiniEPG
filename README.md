@@ -1,6 +1,6 @@
 # MiniEPG
-Aggiorna un file con la EPG per BlobBox 
-http://www.myblobbox.com/it/epg/
+Crea una EPG compatibile con la BlobBox Telesystem a partire da varie fonti.  
+[Web EPB](http://www.myblobbox.com/it/epg/)
 
 # Installazione e Utilizzo
 - Seguire le istruzioni su [INSTALL](https://github.com/JCN-9000/MiniEPG/edit/master/INSTALL)
