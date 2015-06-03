@@ -21,10 +21,10 @@ with open(infil) as data_file:
 bc = js["schedule"]["day"].get("broadcasts")
 
 if not bc:
-    print "Nessun Programma Disponibile per", js["schedule"]["service"]["title"]
+    print("Nessun Programma Disponibile per", js["schedule"]["service"]["title"])
     sys.exit(1)
 
-print js["schedule"]["service"]["title"]
+print(js["schedule"]["service"]["title"])
 
 conn = sqlite3.connect('epg.v2.sqlite')
 c = conn.cursor()
