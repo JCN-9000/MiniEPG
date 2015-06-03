@@ -27,7 +27,7 @@ def _type(scat):
     typ=None
 
     if scat:
-        #~ print scat
+        #~ print(scat)
         if isinstance(scat,list):
             cat = scat[0].get("#text")
         else:
@@ -38,7 +38,7 @@ def _type(scat):
         if xtyp:
             typ=xtyp
 
-        #~ print typ, cat
+        #~ print(typ, cat)
     return typ
 
 def _channel_name(name):
@@ -79,9 +79,9 @@ def _text(title):
         # - a better plan would be to check language codes
         text = title[0]["#text"]
     else:
-        #        print "Unnexpected Title type: \
+        #        ( "Unnexpected Title type: \
         #        Channel={0} Start={1} title={2} class={3}".format(
-        #                channel_name, start_date, title, title.__class__)
+        #                channel_name, start_date, title, title.__class__))
         text = str(title)
     return text
 
@@ -138,7 +138,7 @@ def main():
     prog = jsondata["tv"].get("programme")
 
     if not prog:
-        print "Nessun Programma Disponibile da cutandpasta.it"
+        print("Nessun Programma Disponibile in filename")
         sys.exit(1)
 
     conn = sqlite3.connect('epg.v2.sqlite')
@@ -155,11 +155,11 @@ def main():
         row = cursor.fetchone()
         if not row:
             if channel_name not in chskip:
-                print "Ignoring unrecognised channel  \"{0}\" ".format(channel_name)
+                print("Ignoring unrecognised channel  \"{0}\" ".format(channel_name))
                 chskip=channel_name
             continue
         if channel_name not in chkeep:
-            print "Analisi dati EPG del canale   \"{0}\" ".format(channel_name)
+            print("Analisi dati EPG del canale   \"{0}\" ".format(channel_name))
             chkeep=channel_name
 
         channel = row[0]
@@ -173,14 +173,14 @@ def main():
             params)
         row = cursor.fetchone()
         if row:
-            #print 'Entry for show already present, skipping...'
+            #print('Entry for show already present, skipping...')
             continue
 
         # Calculate duration, ignore empty or negative duration entries
         duration = end_date - start_date
         if duration <= 0:
-            print 'Ignoring entry with bad duration {0}'.format(
-                (channel_name, start_date, end_date, duration))
+            print('Ignoring entry with bad duration {0}'.format(
+                (channel_name, start_date, end_date, duration)))
             continue
 
         # Generate unique ID from channel + timestamp
@@ -213,12 +213,12 @@ def main():
         description = None
         if prog.get("desc"):
             description = unidecode(_text(prog["desc"]))
-            #print "** Desc \'{0}\'".format(description)
+            #print("** Desc \'{0}\'".format(description))
 
         params = (pid, channel, end_date, title, duration, ptype, description)
-        #~ print params
-        #~ print unidecode(channel_name), end_date, title, duration
-        #~ print ".",
+        #~ print(params)
+        #~ print(unidecode(channel_name), end_date, title, duration)
+        #~ print(".", end=" ")
 
         cursor.execute('INSERT INTO show(id,channel,end_date,title,\
         duration,type,description) \
