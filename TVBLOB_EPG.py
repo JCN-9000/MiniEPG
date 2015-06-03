@@ -16,7 +16,7 @@ infil = sys.argv[1]
 with open(infil) as data_file:
     js = json.load(data_file)
 
-#~ print infil
+#~ print(infil)
 
 bc = js["schedule"]["day"].get("broadcasts")
 
@@ -30,21 +30,21 @@ conn = sqlite3.connect('epg.v2.sqlite')
 c = conn.cursor()
 
 for bc in js["schedule"]["day"]["broadcasts"]["broadcast"]:
-    #~ print bc["start"]
-    #~ print bc["end"]
-    #~ print bc["duration"]
+    #~ print(bc["start"])
+    #~ print(bc["end"])
+    #~ print(bc["duration"])
     pr = bc["programme"]
-    #~ print pr["@type"]
-    #~ print pr["pid"]
-    #~ print unidecode(pr["title"])
-    #~ print unidecode(pr["display_titles"]["title"])
-    #~ print unidecode(pr["display_titles"]["subtitle"])
-    #~ print unidecode(pr["short_synopsis"])
+    #~ print(pr["@type"])
+    #~ print(pr["pid"])
+    #~ print(unidecode(pr["title"]))
+    #~ print(unidecode(pr["display_titles"]["title"]))
+    #~ print(unidecode(pr["display_titles"]["subtitle"]))
+    #~ print(unidecode(pr["short_synopsis"]))
     pp = pr.get("programme")
     #~ if pp:
-        #~ print pp["@type"]
-        #~ print pp["pid"]
-        #~ print unidecode(pp["title"])
+        #~ print(pp["@type"])
+        #~ print(pp["pid"])
+        #~ print(unidecode(pp["title"]))
 
     pid = pr["pid"]
 
@@ -53,7 +53,7 @@ for bc in js["schedule"]["day"]["broadcasts"]["broadcast"]:
     c.execute('SELECT id FROM channel WHERE name = ?', p)
     row = c.fetchone()
     channel = row[0]
-    #~ print channel_name, channel
+    #~ print(channel_name, channel)
 
     pend = bc["end"]
     end_date = int(datetime.datetime.strptime(pend.split('+')[0], '%Y-%m-%dT%H:%M:%S').strftime("%s"))
@@ -103,12 +103,12 @@ for bc in js["schedule"]["day"]["broadcasts"]["broadcast"]:
     duration = bc["duration"]
 
     p = ( pid, channel, end_date, title, subtitle, serie, duration )
-    #~ print p
+    #~ print(p)
 
     c.execute('INSERT INTO show(id,channel,end_date,title,subtitle,serie,duration) \
                 VALUES(?,?,?,?,?,?,?)', p )
 
-    #~ print ""
+    #~ print("")
 
 conn.commit()
 conn.close()
