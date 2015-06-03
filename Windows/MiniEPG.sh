@@ -6,7 +6,7 @@
 ## Proxy Settings if behind firewall
 #PU='--proxy-user=USER'
 #PP='--proxy-password=PASS'
-#export HTTP_PROXY=http://PROXY:PORT/
+#set HTTP_PROXY=http://PROXY:PORT/
 PU=
 PP=
 
