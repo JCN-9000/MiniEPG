@@ -168,6 +168,11 @@ def main():
         start_date = _mins_since_epoch(prog["@start"])
         end_date = _mins_since_epoch(prog["@stop"])
 
+# Hint:
+# Also get duration from DB and check if current start date is equal to DB start date
+# meaning same show with different duration. Check delta duration < 10 min.
+# Or check current end date between 13 min from DB end date: more or less same show
+
         params = (channel, end_date)
         cursor.execute('SELECT id FROM show WHERE channel = ? AND end_date= ?',
             params)
