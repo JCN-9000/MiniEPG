@@ -79,7 +79,7 @@ def _text(title):
         # - a better plan would be to check language codes
         text = title[0]["#text"]
     else:
-        #        ( "Unnexpected Title type: \
+        #        print( "Unnexpected Title type: \
         #        Channel={0} Start={1} title={2} class={3}".format(
         #                channel_name, start_date, title, title.__class__))
         text = str(title)
