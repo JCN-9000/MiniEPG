@@ -1,4 +1,7 @@
-ON file n format XMLTV e aggiorna DB sqlite
+#!/usr/bin/python
+
+"""
+# Legge JSON file n format XMLTV e aggiorna DB sqlite
 # Vedi anche
 # http://www.cutandpasta.it
 # http://sat.alfa-tech.net/clouditaly/rytecxmltvItaly.gz
