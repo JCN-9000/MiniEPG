@@ -60,7 +60,11 @@ def _mins_since_epoch(datestring):
     epoch = datetime.datetime(1970, 1, 1)
     sometime = datetime.datetime.strptime(datestring.split('+')[0],
                                           '%Y%m%d%H%M%S ')
-
+# Ora Solare
+#    return ((sometime - epoch).total_seconds() - 60*60) / 60
+# Ora Legale
+#    return ((sometime - epoch).total_seconds() - 120*60) / 60
+# GMT
     return (sometime - epoch).total_seconds() / 60
 
 
