@@ -15,7 +15,7 @@ UNZIP='/usr/bin/unzip'
 UNZIP_OPT='-o'
 ZIP='/usr/bin/zip'
 ZIP_OPT='-u'
-WGET_OPT='-q $PU $PP'
+WGET_OPT="-q $PU $PP"
 SQLITE3='/usr/bin/sqlite3'
 PYTHON='python'
 
@@ -98,7 +98,7 @@ then
 
 # Download XMLTV EPG - Only if it has changed since last time.
         source rytec_clouditaly_xmltv.sh
-        wget $WGET_OPT -N $epg_url_0 || wget -q -N $epg_url_1
+        wget $WGET_OPT -N $epg_url_0 || wget $WGET_OPT -N $epg_url_1
 
 # Expand and load into DB
         if [ -f rytecxmltvItaly.gz ]
