@@ -17,6 +17,7 @@ import json
 from dateutil import parser
 from unidecode import unidecode
 
+local_tz = pytz.timezone('Europe/Rome')
 
 def _type(scat):
     """
@@ -59,8 +60,10 @@ def _mins_since_epoch(datestring):
     Minutes since the Epoch from a given date string
     """
     #return int(dateutil.parser.parse(datestring).astimezone(
+#    return int(parser.parse(datestring).astimezone(
+#        pytz.utc).strftime('%s')) / 60
     return int(parser.parse(datestring).astimezone(
-        pytz.utc).strftime('%s')) / 60
+        local_tz).strftime('%s')) / 60
 
 #    return int(datetime.datetime.strptime(datestring.split('+')[0],
 #            '%Y%m%d%H%M%S ').strftime("%s")) / 60
