@@ -23,8 +23,17 @@ DO_TVB=0
 DO_CNP=0
 DO_RYT=1
 
-[ -f epg.v2.sqlite.zip ] || wget $WGET_OPT http://epgadmin.tvblob.com/static/epg.v2.sqlite.zip
-$UNZIP $UNZIP_OPT epg.v2.sqlite.zip
+#[ -f epg.v2.sqlite.zip ] || wget $WGET_OPT http://epgadmin.tvblob.com/static/epg.v2.sqlite.zip
+#$UNZIP $UNZIP_OPT epg.v2.sqlite.zip
+
+#
+# If we have an old zip file use it?
+#
+#[ -f epg.v2.sqlite.zip ] && $UNZIP $UNZIP_OPT epg.v2.sqlite.zip
+
+# (Re)create empty DB 
+rm -f epg.v2.sqlite
+$SQLITE3 epg.v2.sqlite < create-empty-db.sql
 
 echo "-- SQL per EPG BBox" > MiniEPG-prima.sql
 echo "-- Operazioni Preliminari" >> MiniEPG-prima.sql
