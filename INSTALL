@@ -39,6 +39,15 @@ Istruzioni per l'utilizzo di MiniEPG.
 	-rw-r--r-- 1 avi avi 104457 Apr 19 18:11 epg.v2.sqlite.zip
 
  ============
+ ** Dipendenze : Comandi e moduli necessari al funzionamento degli script:
+ - python 2.7 o 3.x
+ 	python-dateutil
+ 	python-tz
+ - sqlite3
+ - wget
+ - unzip
+ 	
+ ============
  ** Nuovi Canali
 
  Per aggiungere i nuovi canali alla BB:
