@@ -9,11 +9,15 @@
 
 import sys
 import datetime
+import dateutil
+import pytz
 import sqlite3
 import json
 
+from dateutil import parser
 from unidecode import unidecode
 
+local_tz = pytz.timezone('Europe/Rome')
 
 def _type(scat):
     """
@@ -55,17 +59,23 @@ def _mins_since_epoch(datestring):
     """
     Minutes since the Epoch from a given date string
     """
+    #return int(dateutil.parser.parse(datestring).astimezone(
+#    return int(parser.parse(datestring).astimezone(
+#        pytz.utc).strftime('%s')) / 60
+    return int(parser.parse(datestring).astimezone(
+        local_tz).strftime('%s')) / 60
+
 #    return int(datetime.datetime.strptime(datestring.split('+')[0],
 #            '%Y%m%d%H%M%S ').strftime("%s")) / 60
-    epoch = datetime.datetime(1970, 1, 1)
-    sometime = datetime.datetime.strptime(datestring.split('+')[0],
-                                          '%Y%m%d%H%M%S ')
+#    epoch = datetime.datetime(1970, 1, 1)
+#    sometime = datetime.datetime.strptime(datestring.split('+')[-1],
+#                                          '%Y%m%d%H%M%S ')
 # Ora Solare
 #    return ((sometime - epoch).total_seconds() - 60*60) / 60
 # Ora Legale
 #    return ((sometime - epoch).total_seconds() - 120*60) / 60
 # GMT
-    return (sometime - epoch).total_seconds() / 60
+#    return (sometime - epoch).total_seconds() / 60
 
 
 def _text(title):
