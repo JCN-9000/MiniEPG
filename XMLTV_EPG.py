@@ -230,7 +230,7 @@ def main():
             if not ptype:
                 ptype = typ
 
-        description = None
+        description = 'Nessuna descrizione disponibile'
         if prog.get("desc"):
             description = unidecode(_text(prog["desc"]))
             #print("** Desc \'{0}\'".format(description))
