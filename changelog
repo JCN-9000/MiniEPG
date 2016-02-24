@@ -1,3 +1,6 @@
+2016-02-24
+ - Patch for Issue #10 : incorrect Long Description on shows
+ 
 2015-06-03
  - Compatibilità python3
      Uses print() everywhere
