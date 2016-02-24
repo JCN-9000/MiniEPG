@@ -159,6 +159,13 @@ def main():
     conn = sqlite3.connect('epg.v2.sqlite')
     cursor = conn.cursor()
 
+    cursor.execute('SELECT max(id) FROM show')
+    row = cursor.fetchone()
+    if row[0]:
+        pid=row[0]
+    else:
+        pid = 0
+
     chskip = ()
     chkeep = ()
     for prog in jsondata["tv"]["programme"]:
@@ -203,8 +210,9 @@ def main():
                 (channel_name, start_date, end_date, duration)))
             continue
 
-        # Generate unique ID from channel + timestamp
-        pid = end_date + 100000000 * channel
+        # Generate unique ID from channel + timestamp - Univoque but too big for BB
+        # pid = end_date + 100000000 * channel
+        pid = pid + 1
 
         ptype = None
 
