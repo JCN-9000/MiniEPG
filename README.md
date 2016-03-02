@@ -20,6 +20,7 @@ Per migliorare i contenuti segnalateci fonti web che pubblicano EPG in formato X
 ## Ringraziamenti
 Un ringraziamento per i loro contributi, attivi o inconsapevoli a: 
 - [CloudItaly](http://www.clouditaly.tk/)
-- [CutandPasta](http://www.cutandpasta.it/?p=585)
+- [Rytec EPG Team](http://www.rytec.be/)
+- [CutandPasta](http://www.cutandpasta.it/?p=585) - Scomparso
 - [Paul](https://github.com/pslh)
 - Il mondo OpenSource che rende disponibili i vari tool utilizzati
