@@ -16,7 +16,6 @@ INSERT INTO channel VALUES(402,'TOPcrime','272.905.2150','',39,0,'Europe/Rome',0
 INSERT INTO channel VALUES(403,'Boing','272.905.145','',40,0,'Europe/Rome',0);
 INSERT INTO channel VALUES(404,'Cartoonito','272.905.147','',46,0,'Europe/Rome',0);
 INSERT INTO channel VALUES(405,'Super!','29.514.106','',47,0,'Europe/Rome',0);
-INSERT INTO channel VALUES(406,'LaEFFE','8572.31000.5','',50,0,'Europe/Rome',0);
 INSERT INTO channel VALUES(407,'TGCOM24','272.940.4014','',51,0,'Europe/Rome',0);
 INSERT INTO channel VALUES(408,'DMAX','29.516.50','',52,0,'Europe/Rome',0);
 INSERT INTO channel VALUES(409,'Focus TV','8572.31000.25','',56,0,'Europe/Rome',0);
@@ -30,6 +29,8 @@ INSERT INTO channel VALUES(416,'Agon','29.516.10','',33,0,'Europe/Rome',0);
 INSERT INTO channel VALUES(417,'RTL 102.5 TV','29.516.21','',36,0,'Europe/Rome',0);
 INSERT INTO channel VALUES(418,'Gazzetta TV','29.514.50','',59,0,'Europe/Rome',0);
 INSERT INTO channel VALUES(419,'Rai Scuola','318.2.8564','',146,0,'Europe/Rome',0);
+INSERT INTO channel VALUES(420,'Paramount Channel','8572.31000.3','',27,0,'Europe/Rome',0);
+INSERT INTO channel VALUES(421,'Sky TG24','8572.31000.5','',27,0,'Europe/Rome',0);
 
 DELETE FROM triplet where channel_id BETWEEN 400 and 500 ;
 INSERT INTO "triplet" VALUES(401,'29.516.16');
@@ -37,10 +38,8 @@ INSERT INTO "triplet" VALUES(402,'272.905.2150');
 INSERT INTO "triplet" VALUES(403,'272.905.145');
 INSERT INTO "triplet" VALUES(404,'272.905.147');
 INSERT INTO "triplet" VALUES(405,'29.514.106');
-INSERT INTO "triplet" VALUES(406,'8572.31000.5');
 INSERT INTO "triplet" VALUES(407,'272.940.4014');
-INSERT INTO "triplet" VALUES(408,'29.516.50');
-INSERT INTO "triplet" VALUES(409,'TV,8572.31000.25');
+INSERT INTO "triplet" VALUES(409,'8572.31000.25');
 INSERT INTO "triplet" VALUES(410,'272.905.154');
 INSERT INTO "triplet" VALUES(411,'29.514.102/29.514.75');
 INSERT INTO "triplet" VALUES(412,'29.514.101/29.514.85');
@@ -51,6 +50,8 @@ INSERT INTO "triplet" VALUES(416,'29.516.10');
 INSERT INTO "triplet" VALUES(417,'29.516.21');
 INSERT INTO "triplet" VALUES(418,'29.514.50');
 INSERT INTO "triplet" VALUES(419,'318.2.8564');
+INSERT INTO "triplet" VALUES(420,'8572.31000.3');
+INSERT INTO "triplet" VALUES(421,'8572.31000.5');
 
 EOD
 
