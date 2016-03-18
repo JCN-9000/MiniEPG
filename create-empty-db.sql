@@ -56,7 +56,6 @@ INSERT INTO "channel" VALUES(402,'TOPcrime','272.905.2150','',39,0,'Europe/Rome'
 INSERT INTO "channel" VALUES(403,'Boing','272.905.145','',40,0,'Europe/Rome',0);
 INSERT INTO "channel" VALUES(404,'Cartoonito','272.905.147','',46,0,'Europe/Rome',0);
 INSERT INTO "channel" VALUES(405,'Super!','29.514.106','',47,0,'Europe/Rome',0);
-INSERT INTO "channel" VALUES(406,'LaEFFE','8572.31000.5','',50,0,'Europe/Rome',0);
 INSERT INTO "channel" VALUES(407,'TGCOM24','272.940.4014','',51,0,'Europe/Rome',0);
 INSERT INTO "channel" VALUES(408,'DMAX','29.516.50','',52,0,'Europe/Rome',0);
 INSERT INTO "channel" VALUES(409,'Focus TV','8572.31000.25','',56,0,'Europe/Rome',0);
@@ -70,6 +69,9 @@ INSERT INTO "channel" VALUES(416,'Agon','29.516.10','',33,0,'Europe/Rome',0);
 INSERT INTO "channel" VALUES(417,'RTL 102.5 TV','29.516.21','',36,0,'Europe/Rome',0);
 INSERT INTO "channel" VALUES(418,'Gazzetta TV','29.514.50','',59,0,'Europe/Rome',0);
 INSERT INTO "channel" VALUES(419,'Rai Scuola','318.2.8564','',146,0,'Europe/Rome',0);
+INSERT INTO "channel" VALUES(420,'Paramount Channel','8572.31000.3',NULL,27,0,'Europe/Rome',0);
+INSERT INTO "channel" VALUES(421,'Sky TG24','8572.31000.5',NULL,50,0,'Europe/Rome',0);
+
 CREATE TABLE triplet (channel_id integer, triplet text);
 INSERT INTO "triplet" VALUES(100,'8572.18384.11');
 INSERT INTO "triplet" VALUES(100,'8572.18384.5');
@@ -578,7 +580,6 @@ INSERT INTO "triplet" VALUES(402,'272.905.2150');
 INSERT INTO "triplet" VALUES(403,'272.905.145');
 INSERT INTO "triplet" VALUES(404,'272.905.147');
 INSERT INTO "triplet" VALUES(405,'29.514.106');
-INSERT INTO "triplet" VALUES(406,'8572.31000.5');
 INSERT INTO "triplet" VALUES(407,'272.940.4014');
 INSERT INTO "triplet" VALUES(408,'29.516.50');
 INSERT INTO "triplet" VALUES(409,'TV,8572.31000.25');
@@ -592,6 +593,9 @@ INSERT INTO "triplet" VALUES(416,'29.516.10');
 INSERT INTO "triplet" VALUES(417,'29.516.21');
 INSERT INTO "triplet" VALUES(418,'29.514.50');
 INSERT INTO "triplet" VALUES(419,'318.2.8564');
+INSERT INTO "triplet" VALUES(420,'8572.31000.3');
+INSERT INTO "triplet" VALUES(421,'8572.31000.5');
+
 CREATE TABLE type (id integer, it text, en text, ord integer);
 INSERT INTO "type" VALUES(6,'Film','Film',1);
 INSERT INTO "type" VALUES(20,'Fiction','Fiction',2);
@@ -617,12 +621,14 @@ INSERT INTO "type" VALUES(26,'Salute','Health',20);
 INSERT INTO "type" VALUES(25,'Religione','Religion & Ethics',21);
 INSERT INTO "type" VALUES(29,'Cucina e Sapori','Food & Drink',22);
 INSERT INTO "type" VALUES(21,'Televendita','Telesales',23);
+
 CREATE TABLE parental (id integer, type text, ord integer);
 INSERT INTO "parental" VALUES(4,'Blu (per bambini)',0);
 INSERT INTO "parental" VALUES(1,'Verde (per tutti)',1);
 INSERT INTO "parental" VALUES(2,'Giallo (minori accompagnati)',2);
 INSERT INTO "parental" VALUES(3,'Rosso (pubblico adulto)',3);
 INSERT INTO "parental" VALUES(5,'XXX (pornografia)',4);
+
 CREATE TABLE serie
         (serie_id integer, channel integer, title text, subtitle text,
         description text, twitter text, parental integer, type integer, thumbnail_url text);
