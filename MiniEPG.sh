@@ -88,6 +88,9 @@ then
     if [ ! -f files_crossepg_last.zip ]
     then
         wget $WGET_OPT -N http://clouditaly.tk/files/files_crossepg_last.zip
+    fi
+    if [ ! -f rytec_clouditaly_xmltv.conf ]
+    then
         $UNZIP $UNZIP_OPT files_crossepg_last.zip
         mv "files_crossepg(revD2)/rytec_clouditaly_xmltv.conf" .
         rm -rf "files_crossepg(revD2)/"
