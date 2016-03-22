@@ -1,3 +1,7 @@
+2016-03-21
+ - Some channel names changed case:
+   cielo -> Cielo,  RAI -> Rai - fixed aliases.json accordingly
+
 2016-03-18
  - New: Paramount Channel e Sky TG24
 
