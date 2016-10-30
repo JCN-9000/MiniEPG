@@ -43,6 +43,7 @@ Istruzioni per l'utilizzo di MiniEPG.
  - python 2.7 o 3.x
  	python-dateutil
  	python-tz
+ 	python-unidecode
  - sqlite3
  - wget
  - unzip
