@@ -83,44 +83,25 @@ fi
 
 if [ $DO_RYT -eq 1 ]
 then
-    echo "Download EPG da CloudItaly"
-# get zip with pointers 
-    if [ ! -f files_crossepg_last.zip ]
-    then
-        wget $WGET_OPT -N http://clouditaly.tk/files/files_crossepg_last.zip
-    fi
-    if [ ! -f rytec_clouditaly_xmltv.conf ]
-    then
-        $UNZIP $UNZIP_OPT files_crossepg_last.zip
-        mv "files_crossepg(revD2)/rytec_clouditaly_xmltv.conf" .
-        rm -rf "files_crossepg(revD2)/"
-    fi
 
-    if [ -f rytec_clouditaly_xmltv.conf ]
-    then
-        if [ ! -f rytec_clouditaly_xmltv.sh ]
-        then
-# Cleanup file
-            grep -v description rytec_clouditaly_xmltv.conf > rytec_clouditaly_xmltv.sh
-#        sed -i -e 's/=/="/' rytec_clouditaly_xmltv.conf
-#        sed -i -e 's/$/"/' rytec_clouditaly_xmltv.conf
-#        sed -i -s 's/^"$//' rytec_clouditaly_xmltv.conf
-#        cp rytec_clouditaly_xmltv.conf rytec_clouditaly_xmltv.sh
-        fi
+    epg_url_0=http://www.vuplus-community.net/rytec/rytecIT_Basic.xz
 
-# Download XMLTV EPG - Only if it has changed since last time.
-        source rytec_clouditaly_xmltv.sh
-        wget $WGET_OPT -N $epg_url_0 || wget $WGET_OPT -N $epg_url_1
+    echo "!!! Downloading $epg_url_0"
+    wget $WGET_OPT -N $epg_url_0 
+    echo "!!! Done"
+
 
 # Expand and load into DB
-        if [ -f rytecxmltvItaly.gz ]
-        then
-            rm rytecxmltvItaly.json
-            gzip -cd rytecxmltvItaly.gz > rytecxmltvItaly.xml
-            touch -r rytecxmltvItaly.gz rytecxmltvItaly.xml
-            $PYTHON xml2json.py -t xml2json -o  rytecxmltvItaly.json rytecxmltvItaly.xml
-            $PYTHON XMLTV_EPG.py rytecxmltvItaly.json | tee rytecxmltvItaly.log
-        fi
+    if [ -f rytecIT_Basic.xz ]
+    then
+	    echo "!!! Processing file rytecIT_Basic.xz"
+	    xzcat rytecIT_Basic.xz > rytecxmltvItaly.xml 
+	    touch -r rytecIT_Basic.xz rytecxmltvItaly.xml
+	    $PYTHON xml2json.py -t xml2json -o  rytecxmltvItaly.json rytecxmltvItaly.xml
+	    $PYTHON XMLTV_EPG.py rytecxmltvItaly.json | tee rytecxmltvItaly.log
+	    mv rytecxmltvItaly.xz rytecxmltvItaly.xz.old
+    else
+	    echo "!!! No file rytecxmltvItaly.gz"
     fi
 fi
 
