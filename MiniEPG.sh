@@ -84,7 +84,8 @@ fi
 if [ $DO_RYT -eq 1 ]
 then
 
-    epg_url_0=http://www.vuplus-community.net/rytec/rytecIT_Basic.xz
+#    epg_url_0=http://www.vuplus-community.net/rytec/rytecIT_Basic.xz
+    epg_url_0=http://rytecepg.ipservers.eu/epg_data/rytecIT_Basic.xz
 
     echo "!!! Downloading $epg_url_0"
     wget $WGET_OPT -N $epg_url_0 
@@ -99,7 +100,8 @@ then
 	    touch -r rytecIT_Basic.xz rytecxmltvItaly.xml
 	    $PYTHON xml2json.py -t xml2json -o  rytecxmltvItaly.json rytecxmltvItaly.xml
 	    $PYTHON XMLTV_EPG.py rytecxmltvItaly.json | tee rytecxmltvItaly.log
-	    mv rytecxmltvItaly.xz rytecxmltvItaly.xz.old
+	    #mv rytecxmltvItaly.xz rytecxmltvItaly.xz.old
+	    mv rytecIT_Basic.xz rytecIT_Basic.xz.old
     else
 	    echo "!!! No file rytecxmltvItaly.gz"
     fi
