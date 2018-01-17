@@ -11,12 +11,14 @@ PU=
 PP=
 
 # Path to zip compatible Program
-UNZIP='/usr/bin/unzip'
-UNZIP_OPT='-o'
-ZIP='/usr/bin/zip'
+#UNZIP='/usr/bin/unzip'
+#UNZIP_OPT='-o'
+UNZIP='/bin/7z'
+UNZIP_OPT='x'
+ZIP='/bin/zip'
 ZIP_OPT='-u'
 WGET_OPT="-q $PU $PP"
-SQLITE3='/usr/bin/sqlite3'
+SQLITE3='/bin/sqlite3'
 PYTHON='python'
 
 DO_TVB=0
@@ -83,27 +85,44 @@ fi
 
 if [ $DO_RYT -eq 1 ]
 then
+    echo "Download EPG da CloudItaly"
+# get zip with pointers 
+    if [ ! -f files_crossepg_last.zip ]
+    then
+        wget $WGET_OPT -N http://clouditaly.tk/files/files_crossepg_last.zip
+    fi
+    if [ ! -f rytec_clouditaly_xmltv.conf ]
+    then
+        $UNZIP $UNZIP_OPT files_crossepg_last.zip
+        mv "files_crossepg(revD2)/rytec_clouditaly_xmltv.conf" .
+        rm -rf "files_crossepg(revD2)/"
+    fi
 
-#    epg_url_0=http://www.vuplus-community.net/rytec/rytecIT_Basic.xz
-    epg_url_0=http://rytecepg.ipservers.eu/epg_data/rytecIT_Basic.xz
+    if [ -f rytec_clouditaly_xmltv.conf ]
+    then
+        if [ ! -f rytec_clouditaly_xmltv.sh ]
+        then
+# Cleanup file
+            grep -v description rytec_clouditaly_xmltv.conf > rytec_clouditaly_xmltv.sh
+#        sed -i -e 's/=/="/' rytec_clouditaly_xmltv.conf
+#        sed -i -e 's/$/"/' rytec_clouditaly_xmltv.conf
+#        sed -i -s 's/^"$//' rytec_clouditaly_xmltv.conf
+#        cp rytec_clouditaly_xmltv.conf rytec_clouditaly_xmltv.sh
+        fi
 
-    echo "!!! Downloading $epg_url_0"
-    wget $WGET_OPT -N $epg_url_0 
-    echo "!!! Done"
-
+# Download XMLTV EPG - Only if it has changed since last time.
+        source rytec_clouditaly_xmltv.sh
+        wget $WGET_OPT -N $epg_url_0 || wget $WGET_OPT -N $epg_url_1
 
 # Expand and load into DB
-    if [ -f rytecIT_Basic.xz ]
-    then
-	    echo "!!! Processing file rytecIT_Basic.xz"
-	    xzcat rytecIT_Basic.xz > rytecxmltvItaly.xml 
-	    touch -r rytecIT_Basic.xz rytecxmltvItaly.xml
-	    $PYTHON xml2json.py -t xml2json -o  rytecxmltvItaly.json rytecxmltvItaly.xml
-	    $PYTHON XMLTV_EPG.py rytecxmltvItaly.json | tee rytecxmltvItaly.log
-	    #mv rytecxmltvItaly.xz rytecxmltvItaly.xz.old
-	    mv rytecIT_Basic.xz rytecIT_Basic.xz.old
-    else
-	    echo "!!! No file rytecxmltvItaly.gz"
+        if [ -f rytecxmltvItaly.gz ]
+        then
+            rm -f rytecxmltvItaly.json
+            gzip -cd rytecxmltvItaly.gz > rytecxmltvItaly.xml
+            touch -r rytecxmltvItaly.gz rytecxmltvItaly.xml
+            $PYTHON xml2json.py -t xml2json -o  rytecxmltvItaly.json rytecxmltvItaly.xml
+            $PYTHON XMLTV_EPG.py rytecxmltvItaly.json | tee rytecxmltvItaly.log
+        fi
     fi
 fi
 
