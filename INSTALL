@@ -50,6 +50,8 @@ Istruzioni per l'utilizzo di MiniEPG.
  	
  ============
  ** Nuovi Canali
+  Nota: Questa operazione non è più necessaria, il DB viene completamente ricreato
+  con i valori aggiornati dello script create-empty-db.sql
 
  Per aggiungere i nuovi canali alla BB:
   
